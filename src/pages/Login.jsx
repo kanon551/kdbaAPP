@@ -1,7 +1,5 @@
 import React, { useEffect, useState } from 'react'
 import styled from 'styled-components'
-import Paper from '@mui/material/Paper';
-import Box from '@mui/material/Box';
 import TextField from '@mui/material/TextField';
 import OutlinedInput from '@mui/material/OutlinedInput';
 import InputLabel from '@mui/material/InputLabel';
@@ -72,27 +70,14 @@ const ButtonWrap = styled.div`
   display: flex;
 `
 
-const SimpleEntry = styled.div`
-  display: flex;
-  justify-content: space-around;
-`
-
 const Login = () => {
 
   const navigate = useNavigate();
   const [adminButton, setAdminButton] = useState(false)
-
-  const [open, setOpen] = React.useState(false);
     const[password, setPassword] = React.useState('');
     const [showPassword, setShowPassword] = React.useState(true);
     const [email, setEmail] = React.useState('');
-    const[message,setMessage] = React.useState('');
-    const vertical = "top";
-    const horizontal = "right";
 
-    // const handleClick = () => {
-    //   setOpen(true);
-    // };
     useEffect(() => {
       setAdminButton(false);
       }, [])
@@ -103,10 +88,6 @@ const Login = () => {
     const checkLoginStatus =() => {
 
       
-    }
-
-    const adminCliked = () => {
-
     }
 
 
