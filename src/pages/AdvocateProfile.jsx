@@ -140,17 +140,28 @@ const AdvocateProfile = () => {
   }
 
   const imageUpload = useCallback((e)=> {
-    const file = Math.round((e.target.files[0].size / 1024));
-                // The size of the file.
-                if (file >= 250) {
-                  setMessage("File too Big, please select a file under 220kb")
-                  setOpen(true); 
-                  setFile(null);
-                  fileInput.current.value = null;
-                }  else {
-                  setFile(e.target.files[0])
-                }
-      
+    //console.log(e.target.files[0].size)
+    // const file = Math.round((e.target.files[0].size / 1024));
+    //             // The size of the file.
+    //             if (file >= 250) {
+    //               setMessage("File too Big, please select a file under 220kb")
+    //               setOpen(true); 
+    //               setFile(null);
+    //               fileInput.current.value = null;
+    //             }  else {
+    //               setFile(e.target.files[0])
+    //             }
+
+    if(e.target.files[0].size >= 16793600){
+      setMessage("File too Big, Max File Size Limit is 16MB")
+      setOpen(true); 
+      setFile(null);
+      fileInput.current.value = null;
+    }
+    else{
+      setFile(e.target.files[0])
+    }
+                
    })
 
 
