@@ -14,7 +14,6 @@ import IconButton from '@mui/material/IconButton';
 import PersonSearchOutlinedIcon from '@mui/icons-material/PersonSearchOutlined';
 import PlagiarismOutlinedIcon from '@mui/icons-material/PlagiarismOutlined';
 import PersonAddAltOutlinedIcon from '@mui/icons-material/PersonAddAltOutlined';
-import ContactsOutlinedIcon from '@mui/icons-material/ContactsOutlined';
 import Tooltip from '@mui/material/Tooltip';
 import Dialog from '@mui/material/Dialog';
 import DialogActions from '@mui/material/DialogActions';
@@ -23,17 +22,16 @@ import DialogContentText from '@mui/material/DialogContentText';
 import DialogTitle from '@mui/material/DialogTitle';
 import Snackbar from '@mui/material/Snackbar';
 import Alert from '@mui/material/Alert';
+import Skeleton from "@mui/material/Skeleton";
+import Box from "@mui/material/Box";
 
 const Container = styled.div`
     justify-content: center;
     display: flex;
     flex-direction: column;
     align-items: center;
-  background-image: url("https://i.pinimg.com/originals/5c/e0/5e/5ce05e42fd984649cba8ff13d2697d82.jpg") ;
-    background-repeat:no-repeat;
-  background-size: cover;
-    height: 100vh;
-    width: 100vw;
+    height: auto;
+    width: 100%;
 `
 
 const Table = styled.div`
@@ -187,7 +185,7 @@ const KdbaMembers = () => {
           obj1 = event['row'];
           obj2 = 'edit';
         }
-        navigate('/advocate_Profile', {state : {data: obj1, template: obj2 }});
+        navigate('/profile', {state : {data: obj1, template: obj2 }});
       };
 
       const deleteUser = (event) => {
@@ -218,9 +216,9 @@ const KdbaMembers = () => {
           type: 'actions', 
           width: 100,
           getActions: (event) => [
-            <Tooltip title="View Advocate Profile" placement="left" arrow>
-              <GridActionsCellItem icon={<ContactsOutlinedIcon/>}  color='info' onClick={(e)=> handleClickOpen(event,e)} label="View" />
-            </Tooltip>,
+            // <Tooltip title="View Advocate Profile" placement="left" arrow>
+            //   <GridActionsCellItem icon={<ContactsOutlinedIcon/>}  color='info' onClick={(e)=> handleClickOpen(event,e)} label="View" />
+            // </Tooltip>,
             <Tooltip title="Delete Advocate Profile" placement="top" arrow>
                   <GridActionsCellItem  disabled={isAdmin()} icon={<DeleteIcon/>} color='error' onClick={()=> deleteUser(event)} label="Delete"/>
             </Tooltip>,
@@ -240,7 +238,7 @@ const KdbaMembers = () => {
             }
         },
         { field: 'enrollmentNo', headerName: 'Enrollment No', width: 150},
-        { field: 'lfNumber', headerName: 'Lf', width: 70},
+        { field: 'lfNumber', headerName: 'LF', width: 70},
         { field: 'admissionDate', headerName: 'Admission Dt',type: 'date', width: 130,
             valueGetter: (params) => {
               return convertBackendDateToFront(params.value)
@@ -254,7 +252,7 @@ const KdbaMembers = () => {
         },
         { field: 'mobile', headerName: 'Mobile', width: 100 },
         { field: 'cop', headerName: 'Cop', width: 80},
-        { field: 'copNumber', headerName: 'Cop Number', width: 130},
+        { field: 'remarks', headerName: 'Remarks', width: 130},
       ];
 
       const getBarMemebers = async() => {
@@ -269,6 +267,18 @@ const KdbaMembers = () => {
           console.log(e)
       }
       }
+
+      const LoadingSkeleton = () => (
+        <Box
+          sx={{
+            height: "max-content"
+          }}
+        >
+          {[...Array(10)].map((_) => (
+            <Skeleton variant="rectangular" sx={{ my: 4, mx: 1 }} />
+          ))}
+        </Box>
+      );
 
       useEffect(()=>{
         getBarMemebers();
@@ -318,6 +328,18 @@ const KdbaMembers = () => {
           </Paper>
        
         <Table>
+          {
+            barMembers.length === 0 ? 
+            <DataGrid
+                components={{
+                  LoadingOverlay: LoadingSkeleton,
+                }}
+                loading
+                rows={[]}
+                columns={columns}
+              />
+                :
+
                 <DataGrid style={{color:'black', backgroundColor:'white'}}
                 rows={barMembers}
                 columns={columns}
@@ -326,6 +348,8 @@ const KdbaMembers = () => {
                 disableSelectionOnClick
                 loading={loading} 
                 components={{ Toolbar: GridToolbar }} />
+          }
+               
 
             
         </Table>

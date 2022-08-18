@@ -6,7 +6,8 @@
     "@emotion/react": "^11.9.3",
     "@emotion/styled": "^11.9.3",
     "@mui/icons-material": "^5.8.4",
-    "@mui/material": "^5.8.5",
+    "@mui/lab": "^5.0.0-alpha.93",
+    "@mui/material": "^5.9.3",
     "@mui/x-data-grid": "^5.12.3",
     "@mui/x-data-grid-generator": "^5.12.3",
     "@mui/x-data-grid-pro": "^5.12.3",
@@ -21,6 +22,7 @@
     "react-router-dom": "^6.3.0",
     "react-scripts": "5.0.1",
     "styled-components": "^5.3.5",
+    "swiper": "^8.3.2",
     "web-vitals": "^2.1.4"
   },
   "scripts": {
