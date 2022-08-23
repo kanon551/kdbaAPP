@@ -199,7 +199,7 @@ const KdbaMembers = () => {
         const decoded = jwt_decode(localStorage.getItem('token'));
 
     const authAxios = axios.create({
-      baseURL: `http://https://kdbaapi.herokuapp.com/api/kdba`,
+      baseURL: `https://kdbaapi.herokuapp.com/api/kdba`,
       headers: {
         Authorization: 'Bearer ' + localStorage.getItem('token')
       },
@@ -299,7 +299,7 @@ const KdbaMembers = () => {
 
       const getBarMemebers = async() => {
         try{
-          const response = await axios.get(`http://https://kdbaapi.herokuapp.com/api/kdba/getBarMembers`);
+          const response = await axios.get(`https://kdbaapi.herokuapp.com/api/kdba/getBarMembers`);
           setCopyBarMembers(getRowsWithID(response.data['object']))
           setCopyMembersForEnroll(getRowsWithID(response.data['object']))
           setBarMembers(getRowsWithID(response.data['object']));

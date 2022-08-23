@@ -411,7 +411,7 @@ useEffect(()=> {
       const decoded = jwt_decode(localStorage.getItem('token'));
 
         const authAxios = axios.create({
-          baseURL: `http://https://kdbaapi.herokuapp.com/api/kdba`,
+          baseURL: `https://kdbaapi.herokuapp.com/api/kdba`,
           headers: {
             Authorization: 'Bearer ' + localStorage.getItem('token')
           },

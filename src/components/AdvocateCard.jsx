@@ -234,7 +234,7 @@ const AdvocateCard = () => {
 
       const getBarMemebers = async() => {
         try{
-          const response = await axios.get(`http://https://kdbaapi.herokuapp.com/api/kdba/getBarMembers`);
+          const response = await axios.get(`https://kdbaapi.herokuapp.com/api/kdba/getBarMembers`);
           setCopyBarMembers(getRowsWithID(response.data['object']))
           setCopyMembersForEnroll(getRowsWithID(response.data['object']))
            setBarMembers(getRowsWithID(response.data['object']));

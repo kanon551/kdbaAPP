@@ -18,14 +18,6 @@ const App = () => {
     <div>
       <Router>
                 <Routes>
-                  {/* <Route element={<ProtectedRoutes />}>
-                        <Route path="/home" element={<Home />} />
-                        <Route path="/products/:category" element={<ProductList />} />
-                        <Route path="/product/:id" element={<ProductItem />} />
-                        <Route path='/cart' element={<Cart />} />
-                        <Route path='/pay' element={<Pay/>}/>
-                        <Route path='/sucess' element={<Sucess/>}/>
-                  </Route> */}
                   <Route path='/' element={<Home/>}/>
                   <Route path='/home' element={<Home/>}/>
                   <Route path='/history' element={<History/>}/>

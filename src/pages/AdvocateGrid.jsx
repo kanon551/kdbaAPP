@@ -244,7 +244,7 @@ const AdvocateGrid = () => {
         password: password
       }
 
-      await axios.post("http://https://kdbaapi.herokuapp.com/api/kdba/login",data)
+      await axios.post("https://kdbaapi.herokuapp.com/api/kdba/login",data)
       .then(res => {
         setMessage(res.data.message)
         setSnakOpen(true);
