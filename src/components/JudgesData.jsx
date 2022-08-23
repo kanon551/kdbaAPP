@@ -8,6 +8,9 @@ import shyam_sundar from '../assets/shyam_sundar.jpeg';
 import durgaPrasad from '../assets/durgaPrasad.jpeg'; 
 import basavaiah from '../assets/basavaiah.jpeg';
 import krishnaMohan from '../assets/krishnaMohan.jpeg';
+import balayogi from '../assets/balayogi.jpeg';
+import sunil_chowdary from '../assets/sunil_chowdary.jpeg';
+import srinivasFac from '../assets/srinivasFac.jpeg';
 
 export const JudgeData = [
     {
@@ -92,7 +95,7 @@ export const JudgeData = [
         id: 14,
         Title: "Sri T.Sunil Chowdhary",
         Period: "2007-2009",
-        image: 'https://media.istockphoto.com/photos/judge-gavel-and-scale-in-court-legal-concept-picture-id1090431444?k=20&m=1090431444&s=612x612&w=0&h=by_YZG3Mc-wnqx9bSpsKYMKOJkzRDW-WPDfGq8M_Y-o='
+        image: sunil_chowdary
     },
     {
         id: 15,
@@ -104,7 +107,7 @@ export const JudgeData = [
         id: 16,
         Title: "Sri N.Balayogi",
         Period: "30.06.2010 to 27.03.2012",
-        image: 'https://media.istockphoto.com/photos/judge-gavel-and-scale-in-court-legal-concept-picture-id1090431444?k=20&m=1090431444&s=612x612&w=0&h=by_YZG3Mc-wnqx9bSpsKYMKOJkzRDW-WPDfGq8M_Y-o='
+        image: balayogi
     },
     {
         id: 17,
@@ -163,7 +166,13 @@ export const JudgeData = [
     {
         id: 26,
         Title: "Dr. V.Radha Krishna Krupa Sagar",
-        Period: "16.07.2020 A.N to till date",
+        Period: "16.07.2020 A.N to 02.08.2022",
         image: "https://districts.ecourts.gov.in/sites/default/files/pdjknl.jpg"
+    },
+    {
+        id: 27,
+        Title: "Sri A.Srinivasa Kumar (FAC)",
+        Period: "03.08.2022 to till date",
+        image: srinivasFac
     }
 ]

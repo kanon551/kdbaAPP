@@ -42,19 +42,3 @@
   .swiper-button-next, .swiper-button-prev{
     color: white;
   }
-
-  .swiper-slide .title {
-    margin-top: -50px;
-    color: white;
-    padding: 10px;
-    border-radius: 20px;
-    background-color: #F4A460;
-    font-size: 14px;
-    font-weight: normal;
-    box-shadow: rgba(0, 0, 0, 0.16) 0px 3px 6px, rgba(0, 0, 0, 0.23) 0px 3px 6px;
-
-    @media only screen and (max-width: 600px) {
-      font-size: 10px;
-  }
-
-  }

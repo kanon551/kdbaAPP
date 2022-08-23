@@ -5,9 +5,13 @@ import {
   Route,
 } from "react-router-dom";
 import React from 'react'
-import Login from './pages/Login';
-import KdbaPage from './pages/KdbaPage';
-import ManipulateMembers from './components/ManipulateMembers';
+import Home from './pages/Home';
+import History from './pages/History';
+import Magistrate from './pages/Magistrate';
+import Advocates from './pages/Advocates';
+import AdvocateGrid from './pages/AdvocateGrid';
+import AdvocateProfile from './pages/AdvocateProfile';
+import ProtectedRoutes from './components/ProtectedRoutes';
 
 const App = () => {
   return (
@@ -22,9 +26,15 @@ const App = () => {
                         <Route path='/pay' element={<Pay/>}/>
                         <Route path='/sucess' element={<Sucess/>}/>
                   </Route> */}
-                  <Route path='/' element={<KdbaPage/>}/>
-                  <Route path='/login' element={<Login/>}/>
-                  <Route path='/profile' element={<ManipulateMembers/>}/>
+                  <Route path='/' element={<Home/>}/>
+                  <Route path='/home' element={<Home/>}/>
+                  <Route path='/history' element={<History/>}/>
+                  <Route path='/judges' element={<Magistrate/>}/>
+                  <Route path='/advocates' element={<Advocates/>}/>
+                  <Route path='/advocateGrid' element={<AdvocateGrid/>}/>
+                  <Route element={<ProtectedRoutes />}>
+                      <Route path='/advocateProfile' element={<AdvocateProfile/>}/>
+                  </Route>
                 </Routes>
               </Router>
     </div>

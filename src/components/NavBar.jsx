@@ -1,6 +1,6 @@
 import React from 'react'
 import styled from 'styled-components'
-
+import kdbaLogo from '../assets/kdbaLogo.jpeg';
 
 const Container = styled.div`
     height: fit-content;
@@ -8,6 +8,18 @@ const Container = styled.div`
 `
 
 const Logo = styled.div`
+    display: flex;
+    flex-direction: row;
+`
+
+const PureLogo = styled.img`
+     background-repeat:no-repeat;
+  background-size: cover;
+  width: 100%;
+    height: 100%;
+`
+
+const LogoTitle = styled.div`
     font-weight: bold;
     color: white;
     font-size: x-large;
@@ -47,7 +59,10 @@ const NavBar = () => {
     <Container>
         <Wrapper>
             <Logo>
+                <PureLogo src={kdbaLogo}/>
+                <LogoTitle>
                     Kurnool District Bar Association
+                </LogoTitle>
             </Logo>
             <AdminButton>
                     Admin

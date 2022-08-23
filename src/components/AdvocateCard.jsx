@@ -19,6 +19,10 @@ import PlagiarismOutlinedIcon from '@mui/icons-material/PlagiarismOutlined';
 
 const Tittle = styled.div`
     font-size: x-large;
+    color: white;
+    box-shadow: 0px 2px 1px -1px rgb(0 0 0 / 20%),
+                0px 1px 1px 0px rgb(0 0 0 / 14%), 
+                0px 1px 3px 0px rgb(0 0 0 / 12%);
 `
 
 const Paper = styled.div`
@@ -230,7 +234,7 @@ const AdvocateCard = () => {
 
       const getBarMemebers = async() => {
         try{
-          const response = await axios.get(`https://kdbaapi.herokuapp.com/api/kdba/barMember`);
+          const response = await axios.get(`http://https://kdbaapi.herokuapp.com/api/kdba/getBarMembers`);
           setCopyBarMembers(getRowsWithID(response.data['object']))
           setCopyMembersForEnroll(getRowsWithID(response.data['object']))
            setBarMembers(getRowsWithID(response.data['object']));

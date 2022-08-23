@@ -64,7 +64,57 @@ padding: 20px;
         font-size: smaller;
     }
 `
+const ImageContent = styled.div`
 
+
+    color: white;
+    border-radius: 20px;
+    background-color: #F4A460;
+    /* font-size: 14px; */
+    font-weight: normal;
+    box-shadow: rgba(0, 0, 0, 0.16) 0px 3px 6px, rgba(0, 0, 0, 0.23) 0px 3px 6px;
+
+    @media only screen and (max-width: 2560px) {
+      font-size: 14px;
+      margin-top: -50px;
+      padding: 10px;
+    }
+    @media only screen and (max-width: 1440px) {
+      font-size: 14px;
+      margin-top: -50px;
+      padding: 10px;
+    }
+    @media only screen and (max-width: 1024px) {
+      font-size: 14px;
+      margin-top: -50px;
+      padding: 10px;
+    }
+    @media only screen and (max-width: 768px) {
+      font-size: 14px;
+      margin-top: -50px;
+      padding: 10px;
+    }
+    @media only screen and (max-width: 700px) {
+      font-size: 12px;
+      margin-top: -30px;
+      padding: 5px;
+    }
+    @media only screen and (max-width: 425px) {
+      font-size: 12px;
+      margin-top: -30px;
+      padding: 5px;
+    }
+    @media only screen and (max-width: 375px) {
+      font-size: 10px;
+      margin-top: -30px;
+      padding: 5px;
+    }
+    @media only screen and (max-width: 320px) {
+      font-size: 10px;
+      margin-top: -30px;
+      padding: 5px;
+    }
+`
 const Feature = () => {
 
 
@@ -126,11 +176,11 @@ const Feature = () => {
                         return (
                                   <SwiperSlide>
                                       <img src={item.image}/>
-                                      <div className="title" >
+                                      <ImageContent>
                                       {
                                             item.Title
                                       }
-                                      </div>
+                                      </ImageContent>
                                   </SwiperSlide>
 
                                 )

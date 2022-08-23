@@ -24,18 +24,19 @@ import Snackbar from '@mui/material/Snackbar';
 import Alert from '@mui/material/Alert';
 import Skeleton from "@mui/material/Skeleton";
 import Box from "@mui/material/Box";
+import jwt_decode from "jwt-decode";
 
 const Container = styled.div`
     justify-content: center;
     display: flex;
     flex-direction: column;
     align-items: center;
-    height: auto;
+    height: 100%;
     width: 100%;
 `
 
 const Table = styled.div`
-    height: 500px;
+    height: 80%;
     width: 80%;
     background: white;
     padding: 20px;
@@ -79,7 +80,6 @@ const KdbaMembers = () => {
     const[message,setMessage] = useState('');
 
     const navigate = useNavigate();
-
 
     const checkBarMembers = (e)=>{
       if(e.keyCode === 8){
@@ -185,7 +185,7 @@ const KdbaMembers = () => {
           obj1 = event['row'];
           obj2 = 'edit';
         }
-        navigate('/profile', {state : {data: obj1, template: obj2 }});
+        navigate('/advocateProfile', {state : {data: obj1, template: obj2 }});
       };
 
       const deleteUser = (event) => {
@@ -195,20 +195,49 @@ const KdbaMembers = () => {
       }
 
       const deleteConfirmed = async()=> {
-        await axios.delete(`https://kdbaapi.herokuapp.com/api/kdba/barMember/${birdID}`)
-        .then( res => { 
-          setMessage(res.data['message']);
-          setOpen(true); 
-          setDeleteConfirm(false)
-          getBarMemebers();
-        }) 
-      .catch(e => {
+
+        const decoded = jwt_decode(localStorage.getItem('token'));
+
+    const authAxios = axios.create({
+      baseURL: `http://https://kdbaapi.herokuapp.com/api/kdba`,
+      headers: {
+        Authorization: 'Bearer ' + localStorage.getItem('token')
+      },
+    })
   
-      })
+    if (decoded.exp < Date.now() / 1000) {
+      
+      navigate('/login');
+    }
+    else{
+      await authAxios.delete(`/barMember/${birdID}`)
+      .then( res => { 
+        setMessage(res.data['message']);
+        setOpen(true); 
+        setDeleteConfirm(false)
+        getBarMemebers();
+      }) 
+    .catch(e => {
+
+    })
+    }
+        
     }
     
       const isAdmin = () => {
-
+        try{
+          if(localStorage.getItem('token') !== null && localStorage.getItem('token') !== undefined && jwt_decode(localStorage.getItem('token')).exp > Date.now() / 1000){
+            
+            return false;
+          }
+          else{
+            return true;
+          } 
+        }
+        catch(e){
+          return true;
+        }
+        
       }
 
       const columns = [
@@ -219,12 +248,25 @@ const KdbaMembers = () => {
             // <Tooltip title="View Advocate Profile" placement="left" arrow>
             //   <GridActionsCellItem icon={<ContactsOutlinedIcon/>}  color='info' onClick={(e)=> handleClickOpen(event,e)} label="View" />
             // </Tooltip>,
+            
             <Tooltip title="Delete Advocate Profile" placement="top" arrow>
-                  <GridActionsCellItem  disabled={isAdmin()} icon={<DeleteIcon/>} color='error' onClick={()=> deleteUser(event)} label="Delete"/>
+              <span>
+                  <GridActionsCellItem disabled={isAdmin()}
+                      icon={   
+                                  <DeleteIcon/>
+                            } 
+                      color='error' onClick={()=> deleteUser(event)} label="Delete"/>
+              </span>
             </Tooltip>,
-              <Tooltip title="Edit Advocate Profile" arrow>
-                 <GridActionsCellItem disabled={isAdmin()} icon={<EditIcon/>} sx={{ color:'yellowgreen' }} onClick={()=>handleClickOpen(event)} label="Edit"/>
-              </Tooltip>
+            <Tooltip title="Edit Advocate Profile" arrow>
+              <span>
+                <GridActionsCellItem disabled={isAdmin()}
+                icon={
+                              <EditIcon/>
+                } 
+                sx={{ color:'yellowgreen' }} onClick={()=>handleClickOpen(event)} label="Edit"/>
+              </span>
+            </Tooltip>
              
           ], 
         },
@@ -257,7 +299,7 @@ const KdbaMembers = () => {
 
       const getBarMemebers = async() => {
         try{
-          const response = await axios.get(`https://kdbaapi.herokuapp.com/api/kdba/barMember`);
+          const response = await axios.get(`http://https://kdbaapi.herokuapp.com/api/kdba/getBarMembers`);
           setCopyBarMembers(getRowsWithID(response.data['object']))
           setCopyMembersForEnroll(getRowsWithID(response.data['object']))
           setBarMembers(getRowsWithID(response.data['object']));
@@ -281,15 +323,25 @@ const KdbaMembers = () => {
       );
 
       useEffect(()=>{
+        try{
+          if(jwt_decode(localStorage.getItem('token')).exp < Date.now() / 1000){
+            localStorage.setItem('token', null)
+            localStorage.setItem('mail', null)
+            localStorage.setItem('kdbaAdminId', null)
+          } 
+        }
+        catch(e){
+        }
         getBarMemebers();
       },[])
+
 
   return (
     <Container>
         <Paper
             component="form"
             sx={{ display: 'flex',flexDirection:'row', p: '2px',  borderRadius: 1,
-            marginTop:'80px', marginBottom:'10px',marginLeft:'20px',marginRight:'20px', alignItems: 'center'
+            marginBottom:'10px',marginLeft:'20px',marginRight:'20px', alignItems: 'center'
          }}
           >
                 <InputBase
@@ -306,12 +358,24 @@ const KdbaMembers = () => {
                   
                 </IconButton>
                 <Divider sx={{ height: 28, m: 0.5 }} orientation="vertical" />
-                <IconButton color="primary" sx={{ p: '10px' }} aria-label="directions" onClick={()=>handleClickOpen()}>
+
+
+                <IconButton
+                color="primary" 
+                sx={{ p: '10px' }}
+                disabled={isAdmin()}
+                aria-label="directions" 
+                onClick={()=>handleClickOpen()}>
                 <Tooltip title="Add Advocate Profile" placement="top" arrow>
                     <PersonAddAltOutlinedIcon />
                 </Tooltip>
                 </IconButton>
-                <Divider sx={{ height: 28, m: 0.5 }} orientation="vertical" />
+                <Divider 
+                sx={{ height: 28, m: 0.5 }} 
+                orientation="vertical" 
+                />
+
+
                 <IconButton sx={{ p: '10px',color:"chocolate" }} aria-label="search">
                 <Tooltip title="Search enrollment number" placement="bottom-start" arrow>
                     <PlagiarismOutlinedIcon />
@@ -319,7 +383,7 @@ const KdbaMembers = () => {
                 </IconButton>
                 <InputBase
                   sx={{ ml: 1, flex: 1 }}
-                  placeholder="enrollment number..."
+                  placeholder="enroll..."
                   onChange={(e)=> checkBarMemberswithEnroll(e)}
                   onKeyDown={(e)=> checkBarMemberswithEnroll(e)}
                   inputProps={{ 'aria-label': 'search google maps' }}
@@ -355,7 +419,7 @@ const KdbaMembers = () => {
         </Table>
 
         <Snackbar anchorOrigin={{ vertical, horizontal }} open={open} autoHideDuration={6000} onClose={handleClose}  key={vertical + horizontal}>
-              <Alert onClose={handleClose} severity="warning" sx={{ width: '100%' }}>
+              <Alert onClose={handleClose} severity="info" sx={{ width: '100%' }}>
                 {message}
               </Alert>
             </Snackbar>
