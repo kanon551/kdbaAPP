@@ -18,6 +18,7 @@ import {useNavigate} from 'react-router-dom';
 import kdbaLogo from '../assets/kdbaLogo.jpeg';
 import GridOnIcon from '@mui/icons-material/GridOn';
 import move from '../assets/move.gif';
+import ChairIcon from '@mui/icons-material/Chair';
 
 const Container = Styled.div`
     display: flex;
@@ -137,27 +138,7 @@ height: 30px;
   border: none;
 `
 
-// const StyledBox = Styled.div`
-//   background-color: 'grey';
-// `
-
-// const Puller = Styled.div`
-//    width: 30px;
-//   height: 6px;
-//   background-color: '#F4A460';
-//   border-radius: 3px;
-//   position: 'absolute';
-//   top: 8px;
-//   left: 'calc(50% - 15px)';
-// `
-
 const drawerBleeding = 56;
-
-// const Root = styled('div')(({ theme }) => ({
-//   height: '100%',
-//   backgroundColor:
-//     theme.palette.mode === 'light' ? grey[100] : theme.palette.background.default,
-// }));
 
 const StyledBox = styled(Box)(({ theme }) => ({
   backgroundColor: theme.palette.mode === 'light' ? '#fff' : grey[800],
@@ -274,6 +255,12 @@ const Home = () => {
                         <Item color="No" onClick={() => navigate('/advocateGrid')}>
                             <GridOnIcon/>
                             Advocate GridView
+                        </Item>
+                    </Grid>
+                    <Grid item xs={6}>
+                        <Item color="No" onClick={() => navigate('/incumbancy')}>
+                            <ChairIcon/>
+                            Incumbency
                         </Item>
                     </Grid>
                 </Grid>

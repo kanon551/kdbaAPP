@@ -37,7 +37,7 @@ import axios from 'axios';
 import Button from '@mui/material/Button';
 import move from '../assets/move.gif';
 import jwt_decode from "jwt-decode";
-
+import ChairIcon from '@mui/icons-material/Chair';
 
 const Container = Styled.div`
     display: flex;
@@ -766,13 +766,19 @@ useEffect(()=> {
                             Advocates
                         </Item>
                     </Grid>
-                    <Grid item xs={6}>
+                    <Grid item xs={4}>
                         <Item color="No" onClick={() => navigate('/advocateGrid')}>
                             <GridOnIcon/>
                             Advocate GridView
                         </Item>
                     </Grid>
-                    <Grid item xs={6}>
+                    <Grid item xs={4}>
+                        <Item color="No" onClick={() => navigate('/incumbancy')}>
+                            <ChairIcon/>
+                            Incumbency
+                        </Item>
+                    </Grid>
+                    <Grid item xs={4}>
                         <Item color="current">
                             <GridOnIcon/>
                             Admin Access

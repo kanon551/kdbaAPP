@@ -18,6 +18,8 @@ import {useNavigate} from 'react-router-dom';
 import kdbaLogo from '../assets/kdbaLogo.jpeg';
 import GridOnIcon from '@mui/icons-material/GridOn';
 import move from '../assets/move.gif';
+import ChairIcon from '@mui/icons-material/Chair';
+
 
 const Container = Styled.div`
      display: flex;
@@ -277,6 +279,12 @@ const History = () => {
                         <Item color="No" onClick={() => navigate('/advocateGrid')}>
                             <GridOnIcon/>
                             Advocate GridView
+                        </Item>
+                    </Grid>
+                    <Grid item xs={6}>
+                        <Item color="No" onClick={() => navigate('/incumbancy')}>
+                            <ChairIcon/>
+                            Incumbency
                         </Item>
                     </Grid>
                 </Grid>

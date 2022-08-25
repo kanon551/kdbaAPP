@@ -37,6 +37,7 @@ import move from '../assets/move.gif';
 import axios from 'axios';
 import Snackbar from '@mui/material/Snackbar';
 import Alert from '@mui/material/Alert';
+import ChairIcon from '@mui/icons-material/Chair';
 
 const Container = Styled.div`
     display: flex;
@@ -426,13 +427,19 @@ const AdvocateGrid = () => {
                             Advocates
                         </Item>
                     </Grid>
-                    <Grid item xs={6}>
+                    <Grid item xs={4}>
                         <Item color="current">
                             <GridOnIcon/>
                             Advocate GridView
                         </Item>
                     </Grid>
-                    <Grid item xs={6}>
+                    <Grid item xs={4}>
+                        <Item color="No" onClick={() => navigate('/incumbancy')}>
+                            <ChairIcon/>
+                            Incumbency
+                        </Item>
+                    </Grid>
+                    <Grid item xs={4}>
                         <Item color="No" onClick={handleClickOpen}>
                             <GridOnIcon/>
                             Admin

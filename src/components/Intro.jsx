@@ -31,6 +31,58 @@ const Title = styled.h1`
     }
 `
 
+const Anime = styled.div`
+    height: fit-content;
+    animation: AniTittle 15s ease-in-out infinite alternate ;
+
+    @keyframes AniTittle {
+        10%{
+            transform: translateY(-80px);
+        }
+        20%{
+            transform: translateY(-160px);
+        }
+        30%{
+            transform: translateY(-240px);
+        }
+        40%{
+            transform: translateY(-320px);
+        }
+        50%{
+            transform: translateY(-400px);
+        }
+        60%{
+            transform: translateY(-480px);
+        }
+        70%{
+            transform: translateY(-560px);
+        }
+        80%{
+            transform: translateY(-640px);
+        }
+        90%{
+            transform: translateY(-720px);
+        }
+        100%{
+            transform: translateY(-800px);
+        }
+    }
+`
+const AnimTitle = styled.div`
+    height: 80px;
+    font-size: 30px;
+    font-weight: bold;
+    color: #59b256;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+`
+const AnimItem = styled.div`
+margin-top: 30px;
+    height: 80px;
+    overflow: hidden;
+`
+
 const Desc = styled.p`
 width: 60%;
 font-size: small;
@@ -68,6 +120,20 @@ const Intro = () => {
                         standards of ethical conduct, and encourage a spirit of public service among members of the
                         legal profession.
                 </Desc>
+                <AnimItem>
+                    <Anime>
+                        <AnimTitle>Law</AnimTitle>
+                        <AnimTitle>Justice</AnimTitle>
+                        <AnimTitle>Safety</AnimTitle>
+                        <AnimTitle>Protection</AnimTitle>
+                        <AnimTitle>Civil and Political Engagement</AnimTitle>
+                        <AnimTitle>Peace</AnimTitle>
+                        <AnimTitle>Social Progress</AnimTitle>
+                        <AnimTitle>Human Rights</AnimTitle>
+                        <AnimTitle>Standard Structure and Order</AnimTitle>
+                        <AnimTitle>Dispute Settlement And Remedies</AnimTitle>
+                    </Anime>
+                </AnimItem>
             </Grid>
             <Grid item xs={12} sm={12} md={5} lg={5} xl={5}>
                 <Image src={currentImage}/>

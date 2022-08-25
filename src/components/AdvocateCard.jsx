@@ -43,10 +43,10 @@ const HeadingTypography = styled.div`
   color: #F4A460;
 
     @media only screen and (max-width: 2560px) {
-      font-size: xx-large;
+      font-size: x-large;
     }
     @media only screen and (max-width: 1440px) {
-      font-size: x-large;
+      font-size: larger;
     }
     @media only screen and (max-width: 1024px) {
       font-size: larger;
@@ -297,6 +297,18 @@ const AdvocateCard = () => {
         }
       ];
 
+      const capitalMale = (gender)=> {
+        if(gender === "male"){
+          return "Male"
+        }
+        else if(gender === "female"){
+          return "Female"
+        }
+        else{
+          return ""
+        }
+      }
+
   return (
     <Box sx={{ width: '100%',  display: 'flex',
     backgroundImage: 'url("https://coolbackgrounds.io/images/backgrounds/index/gulf-dec0ccde.svg")',
@@ -428,7 +440,7 @@ const AdvocateCard = () => {
                                         </BodyTypography>
                                         <BodyTypography>
                                         {
-                                            `Gender : ${item.gender}`
+                                            `Gender : ${capitalMale(item.gender)}`
                                         }
                                         </BodyTypography>
                                         <BodyTypography>
