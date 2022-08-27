@@ -16,6 +16,9 @@ import InputBase from '@mui/material/InputBase';
 import IconButton from '@mui/material/IconButton';
 import Tooltip from '@mui/material/Tooltip';
 import PlagiarismOutlinedIcon from '@mui/icons-material/PlagiarismOutlined';
+import CardMembershipIcon from '@mui/icons-material/CardMembership';
+import {useNavigate} from 'react-router-dom';
+import diploma from '../assets/diploma.gif';
 
 const Tittle = styled.div`
     font-size: x-large;
@@ -37,12 +40,11 @@ background-color: #fff;
 
     
 `
+const AccordinName = styled.div`
 
-const HeadingTypography = styled.div`
+color: #F4A460;
 
-  color: #F4A460;
-
-    @media only screen and (max-width: 2560px) {
+  @media only screen and (max-width: 2560px) {
       font-size: x-large;
     }
     @media only screen and (max-width: 1440px) {
@@ -66,7 +68,14 @@ const HeadingTypography = styled.div`
     @media only screen and (max-width: 320px) {
       font-size: xx-small;
     }
+`
 
+const HeadingTypography = styled.div`
+  width: 100%;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-between;
 
 ` 
 const BodyTypography = styled.div`
@@ -117,7 +126,18 @@ const Item = styled.div`
         border: 2px solid blue;
     }
 `
+
+const Gif = styled.img`
+    width: 40px;
+height: 40px;
+    background-repeat:no-repeat;
+  background-size: cover;
+  border: none;
+`
+
 const AdvocateCard = () => {
+
+  const navigate = useNavigate();
 
     const [barMembers, setBarMembers] = useState([]);
     const [copyBarMembers, setCopyBarMembers] = useState([]);
@@ -309,6 +329,12 @@ const AdvocateCard = () => {
         }
       }
 
+      const toCertificate = (item)=> {
+        console.log(item)
+        navigate('/certificate', {state : {data: item}});
+        // navigate('/advocateProfile', {state : {data: obj1, template: obj2 }});
+      }
+
   return (
     <Box sx={{ width: '100%',  display: 'flex',
     backgroundImage: 'url("https://coolbackgrounds.io/images/backgrounds/index/gulf-dec0ccde.svg")',
@@ -405,7 +431,17 @@ const AdvocateCard = () => {
                                         aria-controls="panel1a-content"
                                         id="panel1a-header"
                                         >
-                                        <HeadingTypography style={{fontSize:'bold', color:"#F4A460" }}>{item.firstname}</HeadingTypography>
+                                        <HeadingTypography >
+                                          <AccordinName style={{fontSize:'bold' }}>
+                                          {item.firstname}
+                                          </AccordinName>
+                                          <Tooltip title="Certificate">
+                                            <IconButton aria-label="certificate" onClick={()=> toCertificate(item)}>
+                                              <Gif src={diploma} alt="diploma"/>
+                                              {/* <CardMembershipIcon color="action" fontSize="large"/> */}
+                                            </IconButton>
+                                          </Tooltip>
+                                        </HeadingTypography>
                                     </AccordionSummary>
                                     <AccordionDetails>
                                         <BodyTypography >

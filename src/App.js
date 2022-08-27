@@ -13,6 +13,7 @@ import AdvocateGrid from './pages/AdvocateGrid';
 import AdvocateProfile from './pages/AdvocateProfile';
 import ProtectedRoutes from './components/ProtectedRoutes';
 import Incumbency from './pages/Incumbency';
+import Certificate from './pages/Certificate';
 
 const App = () => {
   return (
@@ -26,6 +27,7 @@ const App = () => {
                   <Route path='/advocates' element={<Advocates/>}/>
                   <Route path='/advocateGrid' element={<AdvocateGrid/>}/>
                   <Route path='/incumbancy' element={<Incumbency/>}/>
+                  <Route path='/certificate' element={<Certificate/>}/>
                   <Route element={<ProtectedRoutes />}>
                       <Route path='/advocateProfile' element={<AdvocateProfile/>}/>
                   </Route>
