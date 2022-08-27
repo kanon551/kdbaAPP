@@ -43,7 +43,31 @@ const Container = Styled.div`
   z-index: -1;
   margin-bottom: 50px;
 
-  height: fit-content;
+  @media only screen and (max-width: 2560px) {
+    height: fit-content;
+    }
+    @media only screen and (max-width: 1440px) {
+      height: fit-content;
+    }
+    @media only screen and (max-width: 1024px) {
+      height: fit-content;
+    }
+    @media only screen and (max-width: 768px) {
+      height: fit-content;
+    }
+    @media only screen and (max-width: 700px) {
+      height: fit-content;
+    }
+    @media only screen and (max-width: 425px) {
+      height: 100vh;
+    }
+    @media only screen and (max-width: 375px) {
+      height: 100vh;
+    }
+    @media only screen and (max-width: 320px) {
+      height: 100vh;
+    }
+  
 `
 
 const Logo = Styled.div`
