@@ -324,7 +324,7 @@ const HoldersFather = Styled.div`
 const HolderAdmission = Styled.div`
   position: absolute;
   bottom: 15%;
-  left: 8%;
+  left: 67%;
 
   font-family: system-ui;
   font-weight: 400;
@@ -358,7 +358,7 @@ const HolderAdmission = Styled.div`
 const PractiseYears = Styled.div`
   position: absolute;
   bottom: 15%;
-  left: 28%;
+  left: 88%;
 
   font-family: system-ui;
   font-weight: 400;
@@ -392,7 +392,7 @@ const PractiseYears = Styled.div`
 const HoldersEnroll = Styled.div`
   position: absolute;
   bottom: 15%;
-  left: 67%;
+  left: 6%;
 
   font-family: system-ui;
   font-weight: 400;
@@ -426,7 +426,7 @@ const HoldersEnroll = Styled.div`
 const HoldersEnnrollDt = Styled.div`
   position: absolute;
   bottom: 15%;
-  left: 86%;
+  left: 26%;
 
   font-family: system-ui;
   font-weight: 400;
@@ -501,7 +501,7 @@ const ComponentToPrint = React.forwardRef((props, ref) => (
         {props.data === null ? "Admission Date" : convertBackendDateToFront(props.data.admissionDate)}
         </HolderAdmission>
         <PractiseYears>
-          {props.data === null ? "" : calculateService(props.data.admissionDate)} Years
+          {props.data === null ? "" : calculateService(props.data.admissionDate)}
         </PractiseYears>
         <HoldersEnroll>
         {props.data === null ? "Enrollment Number" : props.data.enrollmentNo}

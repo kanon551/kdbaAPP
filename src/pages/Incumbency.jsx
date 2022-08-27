@@ -256,6 +256,7 @@ font-size: 30px;
 
 const Tab2Head = Styled.div`
 display: flex;
+flex-direction: column;
     align-items: center;
     justify-content: center;
 `
@@ -685,6 +686,16 @@ const Incumbency = () => {
                 </Tabs>
                 </Box>
                 <TabPanel  value={value} index={0}>
+
+                <Tab2Head>
+                <p>THE DISTRICT BAR ASSOCIATION- KURNOOL</p>
+                <p>(REGISTRATION NUMBER 12/1964)</p>
+                <p>DATED THE 22 ND DAY OF AUGUST 1964</p>
+                <p>The names, addresses and occupation of the Members of the Managing Committee of the
+                association in whom the Administration of the affairs of the Association is at present vested
+                are :</p>
+                </Tab2Head>
+
                   {
                     FoundersData.map((item, index) => (
 
