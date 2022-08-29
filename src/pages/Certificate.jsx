@@ -463,7 +463,7 @@ justify-content: center;
 
 font-family: system-ui;
     font-weight: 400;
-    color: cornflowerblue
+    color: cornflowerblue;
 `
 
 const convertBackendDateToFront = (value) => {
@@ -580,9 +580,21 @@ const Certificate = () => {
                         startIcon={<Gif src={jpgIcon} alt="JPG"/>}>
                         Export As JPG
                 </Button>
-                {/* <IconButton onClick={() => exportComponentAsPDF(componentRef)} aria-label="PDF">
+                <IconButton 
+                onClick={() => exportComponentAsPDF(componentRef, {
+                  pdfOptions: {
+                    w: 750,
+                    h: 420,
+                    x : 0,
+                    y: 0,
+                    unit: 'px', 
+                    orientation: 'p', 
+                    pdfFormat : "legal"
+                  }
+                })} 
+                aria-label="PDF">
                   <Gif src={pdfIcon} alt="PDF"/>
-                </IconButton> */}
+                </IconButton>
                 <Button onClick={() => exportComponentAsPNG(componentRef)}
                         variant="contained" 
                         endIcon={<Gif src={pngIcon} alt="PNG"/>}>
