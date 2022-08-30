@@ -221,7 +221,7 @@ const CentificateHolder = Styled.div`
   transform: translate(-50%, -50%);
 
   font-family: cursive;
-    font-weight: bold;
+    font-weight: 400px;
     color: peru;
 
     @media only screen and (max-width: 2560px) {
@@ -256,7 +256,8 @@ const CertificateDate = Styled.div`
   top: 33%;
   right: 5%;
 
-  font-family: system-ui;
+  /* font-family: system-ui; */
+  font-family: 'IBM Plex Mono', monospace;
     color: mediumblue;
     
 
@@ -293,7 +294,7 @@ const HoldersFather = Styled.div`
   transform: translate(-50%, -50%);
 
   font-family: cursive;
-    font-weight: bold;
+    font-weight: 400px;
     color: peru;
     @media only screen and (max-width: 2560px) {
       font-size: xxx-large;
@@ -326,7 +327,7 @@ const HolderAdmission = Styled.div`
   bottom: 15%;
   left: 67%;
 
-  font-family: system-ui;
+  font-family: 'IBM Plex Mono', monospace;
   font-weight: 400;
 
   @media only screen and (max-width: 2560px) {
@@ -360,7 +361,7 @@ const PractiseYears = Styled.div`
   bottom: 15%;
   left: 88%;
 
-  font-family: system-ui;
+  font-family: 'IBM Plex Mono', monospace;
   font-weight: 400;
 
   @media only screen and (max-width: 2560px) {
@@ -394,7 +395,7 @@ const HoldersEnroll = Styled.div`
   bottom: 15%;
   left: 6%;
 
-  font-family: system-ui;
+  font-family: 'IBM Plex Mono', monospace;
   font-weight: 400;
 
   @media only screen and (max-width: 2560px) {
@@ -428,7 +429,7 @@ const HoldersEnnrollDt = Styled.div`
   bottom: 15%;
   left: 26%;
 
-  font-family: system-ui;
+  font-family: 'IBM Plex Mono', monospace;
   font-weight: 400;
 
   @media only screen and (max-width: 2560px) {
