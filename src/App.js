@@ -14,26 +14,35 @@ import AdvocateProfile from './pages/AdvocateProfile';
 import ProtectedRoutes from './components/ProtectedRoutes';
 import Incumbency from './pages/Incumbency';
 import Certificate from './pages/Certificate';
+import { QueryClient, QueryClientProvider } from "react-query";
+import { ReactQueryDevtools } from "react-query/devtools";
+
+
+export const client = new QueryClient();
 
 const App = () => {
   return (
-    <div>
-      <Router>
-                <Routes>
-                  <Route path='/' element={<Home/>}/>
-                  <Route path='/home' element={<Home/>}/>
-                  <Route path='/history' element={<History/>}/>
-                  <Route path='/judges' element={<Magistrate/>}/>
-                  <Route path='/advocates' element={<Advocates/>}/>
-                  <Route path='/advocateGrid' element={<AdvocateGrid/>}/>
-                  <Route path='/incumbancy' element={<Incumbency/>}/>
-                  <Route path='/certificate' element={<Certificate/>}/>
-                  <Route element={<ProtectedRoutes />}>
-                      <Route path='/advocateProfile' element={<AdvocateProfile/>}/>
-                  </Route>
-                </Routes>
-              </Router>
-    </div>
+    <QueryClientProvider client={client}>
+        <div>
+              <Router>
+                        <Routes>
+                          <Route path='/' element={<Home/>}/>
+                          <Route path='/home' element={<Home/>}/>
+                          <Route path='/history' element={<History/>}/>
+                          <Route path='/judges' element={<Magistrate/>}/>
+                          <Route path='/advocates' element={<Advocates/>}/>
+                          <Route path='/advocateGrid' element={<AdvocateGrid/>}/>
+                          <Route path='/incumbancy' element={<Incumbency/>}/>
+                          <Route path='/certificate' element={<Certificate/>}/>
+                          <Route element={<ProtectedRoutes />}>
+                              <Route path='/advocateProfile' element={<AdvocateProfile/>}/>
+                          </Route>
+                        </Routes>
+                      </Router>
+            </div>
+            {/* <ReactQueryDevtools initialIsOpen={false} position='bottom-right'/> */}
+    </QueryClientProvider>
+    
   )
 }
 

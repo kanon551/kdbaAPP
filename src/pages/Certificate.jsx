@@ -29,6 +29,7 @@ import certificateCanvas from '../assets/certificate.png';
 import { useLocation } from 'react-router-dom';
 import OutlinedInput from '@mui/material/OutlinedInput';
 import IconButton from '@mui/material/IconButton';
+import CalcDate from '../hooks/CalcDate';
 
 const Container = Styled.div`
     display: flex;
@@ -193,12 +194,6 @@ const Puller = styled(Box)(({ theme }) => ({
   left: 'calc(50% - 15px)',
 }));
 
-const Border = Styled.div`
- border: 30px solid transparent;
-        padding: 15px;
-        border-image:  url(${props => props.img }) 15% round;
-`
-
 const Paper = Styled.div`
   background-color: rgb(255, 255, 255);
     border-radius: 4px;
@@ -224,31 +219,7 @@ const CentificateHolder = Styled.div`
     font-weight: 400px;
     color: peru;
 
-    @media only screen and (max-width: 2560px) {
-      font-size: xxx-large;
-    }
-    @media only screen and (max-width: 1440px) {
-      font-size: xx-large;
-    }
-    @media only screen and (max-width: 1024px) {
-      font-size: x-large;
-    }
-    @media only screen and (max-width: 768px) {
-      font-size: larger;
-    }
-    @media only screen and (max-width: 700px) {
-      font-size : small;
-    }
-    @media only screen and (max-width: 425px) {
-      font-size : smaller;
-    }
-    @media only screen and (max-width: 375px) {
-      font-size : x-small;
-    }
-    @media only screen and (max-width: 320px) {
-      font-size : xx-small;
-    }
-    
+    font-size:2.6vw;
 `
 
 const CertificateDate = Styled.div`
@@ -260,31 +231,7 @@ const CertificateDate = Styled.div`
   font-family: 'IBM Plex Mono', monospace;
     color: mediumblue;
     
-
-    @media only screen and (max-width: 2560px) {
-      font-size : 28px;
-    }
-    @media only screen and (max-width: 1440px) {
-      font-size : 20px;
-    }
-    @media only screen and (max-width: 1024px) {
-      font-size : 16px;
-    }
-    @media only screen and (max-width: 768px) {
-      font-size : 13px;
-    }
-    @media only screen and (max-width: 700px) {
-      font-size : 11px;
-    }
-    @media only screen and (max-width: 425px) {
-      font-size : 9px;
-    }
-    @media only screen and (max-width: 375px) {
-      font-size : 8px;
-    }
-    @media only screen and (max-width: 320px) {
-      font-size : 6px;
-    }
+    font-size:2vw;
 `
 
 const HoldersFather = Styled.div`
@@ -296,98 +243,30 @@ const HoldersFather = Styled.div`
   font-family: cursive;
     font-weight: 400px;
     color: peru;
-    @media only screen and (max-width: 2560px) {
-      font-size: xxx-large;
-    }
-    @media only screen and (max-width: 1440px) {
-      font-size: xx-large;
-    }
-    @media only screen and (max-width: 1024px) {
-      font-size: x-large;
-    }
-    @media only screen and (max-width: 768px) {
-      font-size: larger;
-    }
-    @media only screen and (max-width: 700px) {
-      font-size : small;
-    }
-    @media only screen and (max-width: 425px) {
-      font-size : smaller;
-    }
-    @media only screen and (max-width: 375px) {
-      font-size : x-small;
-    }
-    @media only screen and (max-width: 320px) {
-      font-size : xx-small;
-    }
+
+    font-size:2.6vw;
 `
 
 const HolderAdmission = Styled.div`
   position: absolute;
   bottom: 15%;
-  left: 67%;
+  left: 65%;
 
   font-family: 'IBM Plex Mono', monospace;
   font-weight: 400;
 
-  @media only screen and (max-width: 2560px) {
-      font-size : 28px;
-    }
-    @media only screen and (max-width: 1440px) {
-      font-size : 20px;
-    }
-    @media only screen and (max-width: 1024px) {
-      font-size : 16px;
-    }
-    @media only screen and (max-width: 768px) {
-      font-size : 13px;
-    }
-    @media only screen and (max-width: 700px) {
-      font-size : 11px;
-    }
-    @media only screen and (max-width: 425px) {
-      font-size : 9px;
-    }
-    @media only screen and (max-width: 375px) {
-      font-size : 8px;
-    }
-    @media only screen and (max-width: 320px) {
-      font-size : 6px;
-    }
+  font-size:2vw;
 `
 
 const PractiseYears = Styled.div`
   position: absolute;
   bottom: 15%;
-  left: 88%;
+  left: 84%;
 
   font-family: 'IBM Plex Mono', monospace;
   font-weight: 400;
 
-  @media only screen and (max-width: 2560px) {
-      font-size : 28px;
-    }
-    @media only screen and (max-width: 1440px) {
-      font-size : 20px;
-    }
-    @media only screen and (max-width: 1024px) {
-      font-size : 16px;
-    }
-    @media only screen and (max-width: 768px) {
-      font-size : 13px;
-    }
-    @media only screen and (max-width: 700px) {
-      font-size : 11px;
-    }
-    @media only screen and (max-width: 425px) {
-      font-size : 9px;
-    }
-    @media only screen and (max-width: 375px) {
-      font-size : 8px;
-    }
-    @media only screen and (max-width: 320px) {
-      font-size : 6px;
-    }
+  font-size:2vw;
 `
 
 const HoldersEnroll = Styled.div`
@@ -398,30 +277,7 @@ const HoldersEnroll = Styled.div`
   font-family: 'IBM Plex Mono', monospace;
   font-weight: 400;
 
-  @media only screen and (max-width: 2560px) {
-      font-size : 28px;
-    }
-    @media only screen and (max-width: 1440px) {
-      font-size : 20px;
-    }
-    @media only screen and (max-width: 1024px) {
-      font-size : 16px;
-    }
-    @media only screen and (max-width: 768px) {
-      font-size : 13px;
-    }
-    @media only screen and (max-width: 700px) {
-      font-size : 11px;
-    }
-    @media only screen and (max-width: 425px) {
-      font-size : 9px;
-    }
-    @media only screen and (max-width: 375px) {
-      font-size : 8px;
-    }
-    @media only screen and (max-width: 320px) {
-      font-size : 6px;
-    }
+  font-size:2vw;
 `
 
 const HoldersEnnrollDt = Styled.div`
@@ -432,30 +288,7 @@ const HoldersEnnrollDt = Styled.div`
   font-family: 'IBM Plex Mono', monospace;
   font-weight: 400;
 
-  @media only screen and (max-width: 2560px) {
-      font-size : 28px;
-    }
-    @media only screen and (max-width: 1440px) {
-      font-size : 20px;
-    }
-    @media only screen and (max-width: 1024px) {
-      font-size : 16px;
-    }
-    @media only screen and (max-width: 768px) {
-      font-size : 13px;
-    }
-    @media only screen and (max-width: 700px) {
-      font-size : 11px;
-    }
-    @media only screen and (max-width: 425px) {
-      font-size : 9px;
-    }
-    @media only screen and (max-width: 375px) {
-      font-size : 8px;
-    }
-    @media only screen and (max-width: 320px) {
-      font-size : 6px;
-    }
+  font-size:2vw;
 `
 const FatherWrapper = Styled.div`
 display: flex;
@@ -477,12 +310,12 @@ const convertBackendDateToFront = (value) => {
 }
 
 const calculateService = (value)=> {
-  var date = new Date(value.replace('IST', ''));
-  let admissionMonth = date.getMonth()+1;
-  let admissionYear = date.getFullYear();
-  let currentMonth = new Date().getMonth()+1;
-  let currentYear = new Date().getFullYear();
-  return (currentYear - admissionYear)+"."+(currentMonth - admissionMonth);
+
+  let difference = CalcDate(value,new Date())
+  let arr = difference['result'].split(' ');
+
+  // The array
+  return arr[0]+"."+arr[2]+" "+arr[1];
 }
 
 

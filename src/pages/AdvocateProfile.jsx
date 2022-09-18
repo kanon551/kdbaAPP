@@ -19,8 +19,6 @@ import GridOnIcon from '@mui/icons-material/GridOn';
 import TextField from '@mui/material/TextField';
 import useMediaQuery from '@mui/material/useMediaQuery';
 import Card from '@mui/material/Card';
-import CardActions from '@mui/material/CardActions';
-import CardContent from '@mui/material/CardContent';
 import CardMedia from '@mui/material/CardMedia';
 import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider';
 import { DesktopDatePicker } from '@mui/x-date-pickers/DesktopDatePicker';
@@ -167,9 +165,6 @@ const Container2 = Styled.div`
     flex-direction: column;
     justify-content: center;
     align-items: center;
-    /* background: "https://t3.ftcdn.net/jpg/02/36/23/66/360_F_236236696_mTYBnVvXVykDspnSwLdzo16jqjdVLdXy.jpg";
-    background-repeat: no-repeat;
-    background-size: cover; */
 `
 
 const Tittle = Styled.div`
@@ -179,31 +174,7 @@ const Tittle = Styled.div`
     font-weight: bold;
 `
 
-const End = Styled.div`
-    font-size: medium;
-`
-
-// const StyledBox = Styled.div`
-//   background-color: 'grey';
-// `
-
-// const Puller = Styled.div`
-//    width: 30px;
-//   height: 6px;
-//   background-color: '#F4A460';
-//   border-radius: 3px;
-//   position: 'absolute';
-//   top: 8px;
-//   left: 'calc(50% - 15px)';
-// `
-
 const drawerBleeding = 56;
-
-// const Root = styled('div')(({ theme }) => ({
-//   height: '100%',
-//   backgroundColor:
-//     theme.palette.mode === 'light' ? grey[100] : theme.palette.background.default,
-// }));
 
 const StyledBox = styled(Box)(({ theme }) => ({
   backgroundColor: theme.palette.mode === 'light' ? '#fff' : grey[800],
@@ -672,22 +643,7 @@ useEffect(()=> {
                                     height= "100%"
                                     image={`data:image/jpeg;base64,${image}`}
                                     />
-                                        // <ImgContainer img={`data:image/jpeg;base64,${image}`}/>
                                 }
-                                
-                                    {/* <CardContent>
-                                        <Typography gutterBottom variant="h5" component="div">
-                                        Lizard
-                                        </Typography>
-                                        <Typography variant="body2" color="text.secondary">
-                                        Lizards are a widespread group of squamate reptiles, with over 6,000
-                                        species, ranging across all continents except Antarctica
-                                        </Typography>
-                                    </CardContent> */}
-                                    {/* <CardActions>
-                                        <Button size="small">Share</Button>
-                                        <Button size="small">Learn More</Button>
-                                    </CardActions> */}
                                 </Card>
                             </Grid>
                         </Grid>

@@ -1,6 +1,5 @@
-import React, { useEffect, useState } from 'react'
-import styled from 'styled-components'
-import axios from 'axios';
+import React, { useState } from 'react'
+import styled from 'styled-components';
 import Box from '@mui/material/Box';
 import Masonry from '@mui/lab/Masonry';
 import Accordion from '@mui/material/Accordion';
@@ -16,9 +15,10 @@ import InputBase from '@mui/material/InputBase';
 import IconButton from '@mui/material/IconButton';
 import Tooltip from '@mui/material/Tooltip';
 import PlagiarismOutlinedIcon from '@mui/icons-material/PlagiarismOutlined';
-import CardMembershipIcon from '@mui/icons-material/CardMembership';
 import {useNavigate} from 'react-router-dom';
 import diploma from '../assets/diploma.gif';
+import { useAdvocateHook } from '../hooks/useAdvocateHook';
+
 
 const Tittle = styled.div`
     font-size: x-large;
@@ -43,37 +43,17 @@ background-color: #fff;
 const AccordinName = styled.div`
 
 color: #F4A460;
-
-  @media only screen and (max-width: 2560px) {
+word-break: break-word;
+  font-size:2.6vh;
+  /* @media only screen and (max-width: 2560px) {
       font-size: x-large;
-    }
-    @media only screen and (max-width: 1440px) {
-      font-size: larger;
-    }
-    @media only screen and (max-width: 1024px) {
-      font-size: larger;
-    }
-    @media only screen and (max-width: 768px) {
-      font-size: large;
-    }
-    @media only screen and (max-width: 700px) {
-      font-size: small;
-    }
-    @media only screen and (max-width: 425px) {
-      font-size: small;
-    }
-    @media only screen and (max-width: 375px) {
-      font-size: x-small;
-    }
-    @media only screen and (max-width: 320px) {
-      font-size: xx-small;
-    }
+    }*/
 `
 
 const HeadingTypography = styled.div`
   width: 100%;
   display: flex;
-  flex-direction: row;
+  flex-direction: column;
   align-items: center;
   justify-content: space-between;
 
@@ -82,30 +62,8 @@ const HeadingTypography = styled.div`
 ` 
 const BodyTypography = styled.div`
 
-  @media only screen and (max-width: 2560px) {
-      font-size: 28px;
-    }
-    @media only screen and (max-width: 1440px) {
-      font-size: 18px;
-    }
-    @media only screen and (max-width: 1024px) {
-      font-size: 16px;
-    }
-    @media only screen and (max-width: 768px) {
-      font-size: 14px;
-    }
-    @media only screen and (max-width: 700px) {
-      font-size: 12px;
-    }
-    @media only screen and (max-width: 425px) {
-      font-size: 12px;
-    }
-    @media only screen and (max-width: 375px) {
-      font-size: 10px;
-    }
-    @media only screen and (max-width: 320px) {
-      font-size: 8px;
-    }
+word-break: break-word;
+font-size:1.6vh;
 `
 
 const Item = styled.div`
@@ -137,44 +95,47 @@ height: 40px;
   border: none;
 `
 
+const ErrorMessage = styled.div`
+    color: white;
+    display: flex;
+    font-size: xxx-large;
+    margin: 100px;
+    font-weight: bold;
+    font-family: 'Courier New', Courier, monospace;
+    align-items: center;
+    justify-content: center;
+`
+
 const AdvocateCard = () => {
 
   const navigate = useNavigate();
 
-    const [barMembers, setBarMembers] = useState([]);
+  
     const [copyBarMembers, setCopyBarMembers] = useState([]);
     const [copyMembersForEnroll, setCopyMembersForEnroll] = useState([]);
+    const onSuccess = ()=> {
+      console.warn("Successfully fetched the data")
+    }
+    const onError =  ()=> {
+      console.warn(error)
+    }
 
+    const { isLoading, isError, data, error } = useAdvocateHook(onSuccess,onError,copyBarMembers,copyMembersForEnroll)
 
     const [pageNumber, setPageNumber] = useState(0);
   const advocatesPerPage = 12;
   const advocatesVisited = pageNumber * advocatesPerPage;
-  const advocatesCount = Math.ceil(barMembers.length / advocatesPerPage);
+    const advocatesCount =  data !== undefined && data.length !== 0 ? Math.ceil( data.length / advocatesPerPage) : 0;
+  
+    if(isError){
+        return <ErrorMessage>{error.message}</ErrorMessage>
+    }
+
+
+    
   const changePage = (event, value) => {
     setPageNumber(value-1);
   };
-
-
-
-    useEffect(()=>{
-        getBarMemebers();
-      },[])
-
-      const getRowsWithID = (rows) => {
-        let id = 1;
-        let CompleteRowListArray = []
-    
-        for(let row of rows){
-          const rowWithID = {
-            id: id,
-            ...row
-          }
-          id++
-          CompleteRowListArray.push(rowWithID)
-        }
-    
-        return CompleteRowListArray
-      }
 
 
       const convertBackendDateToFront = (value) => {
@@ -209,115 +170,16 @@ const AdvocateCard = () => {
       }
 
       const checkBarMembers = (e)=>{
-        if(e.keyCode === 8){
-            //console.log("backward filtering")
-            const noBackCharecter = e.target.value.slice(0, -1)
-            let caseInsensitive = noBackCharecter.toLowerCase();
-            const p = Array.from(caseInsensitive).reduce((a, v, i) => `${a}[^${caseInsensitive.substr(i)}]*?${v}`, '');
-            const re = RegExp(p);
-            setBarMembers(copyBarMembers.filter(v => v.firstname.toLowerCase().match(re)))
-        }
-        else if(e.target.value !== ""){
-            //console.log("forward filtering")
-            let caseInsensitive = e.target.value.toLowerCase();
-            const p = Array.from(caseInsensitive).reduce((a, v, i) => `${a}[^${caseInsensitive.substr(i)}]*?${v}`, '');
-            const re = RegExp(p);
-            setBarMembers((prev)=>
-        [...prev].filter(v => v.firstname.toLowerCase().match(re)))
-        }
-        else{
-          setBarMembers(copyBarMembers)
-        }
-        
+        let caseInsensitive = e.target.value.toLowerCase();
+        setCopyMembersForEnroll([])
+        setCopyBarMembers(caseInsensitive);
       }
 
       const checkBarMemberswithEnroll = (e)=>{
-        if(e.keyCode === 8){
-            //console.log("backward filtering")
-            const noBackCharecter = e.target.value.slice(0, -1)
-            let caseInsensitive = noBackCharecter.toLowerCase();
-            const p = Array.from(caseInsensitive).reduce((a, v, i) => `${a}[^${caseInsensitive.substr(i)}]*?${v}`, '');
-            const re = RegExp(p);
-            setBarMembers(copyMembersForEnroll.filter(v => v.enrollmentNo.toLowerCase().match(re)))
-        }
-        else if(e.target.value !== ""){
-            //console.log("forward filtering")
-            let caseInsensitive = e.target.value.toLowerCase();
-            const p = Array.from(caseInsensitive).reduce((a, v, i) => `${a}[^${caseInsensitive.substr(i)}]*?${v}`, '');
-            const re = RegExp(p);
-            setBarMembers((prev)=>
-        [...prev].filter(v => v.enrollmentNo.toLowerCase().match(re)))
-        }
-        else{
-          setBarMembers(copyMembersForEnroll)
-        }
-        
+        let caseInsensitiveEnroll = e.target.value.toLowerCase();
+        setCopyBarMembers([])
+        setCopyMembersForEnroll(caseInsensitiveEnroll);
       }
-
-      const getBarMemebers = async() => {
-        try{
-          const response = await axios.get(`https://kdbaapi.herokuapp.com/api/kdba/getBarMembers`);
-          setCopyBarMembers(getRowsWithID(response.data['object']))
-          setCopyMembersForEnroll(getRowsWithID(response.data['object']))
-           setBarMembers(getRowsWithID(response.data['object']));
-          
-      }
-     
-      catch(e){
-          console.log(e)
-      }
-      }
-
-      const itemData = [
-        {
-          title: 'Loading......',
-        },
-        {
-          title: 'Loading......',
-        },
-        {
-          title: 'Loading......',
-        },
-        {
-          title: 'Loading......',
-        },
-        {
-          title: 'Loading......',
-        },
-        {
-          title: 'Loading......',
-        },
-        {
-          title: 'Loading......',
-        },
-        {
-          title: 'Loading......',
-        },
-        {
-          title: 'Loading......',
-        },
-        {
-          title: 'Loading......',
-        },
-        {
-          title: 'Loading......',
-        },
-        {
-          title: 'Loading......',
-        },
-        {
-          title: 'Loading......',
-        },
-        {
-          title: 'Loading......',
-        },
-        {
-          title: 'Loading......',
-        },
-        {
-          title: 'Loading......',
-        }
-      ];
 
       const capitalMale = (gender)=> {
         if(gender === "male"){
@@ -332,9 +194,7 @@ const AdvocateCard = () => {
       }
 
       const toCertificate = (item)=> {
-        console.log(item)
         navigate('/certificate', {state : {data: item}});
-        // navigate('/advocateProfile', {state : {data: obj1, template: obj2 }});
       }
 
   return (
@@ -359,7 +219,6 @@ const AdvocateCard = () => {
                       placeholder="search by name..."
                       size="small"
                       onChange={(e)=> checkBarMembers(e)}
-                      onKeyDown={(e)=> checkBarMembers(e)}
                       inputProps={{ 'aria-label': 'search by name' }}
                     />
                     <IconButton  sx={{ p: '10px',color:"mediumorchid"}} aria-label="search">
@@ -376,7 +235,6 @@ const AdvocateCard = () => {
                             placeholder="search by enrollment number..."
                             size="small"
                             onChange={(e)=> checkBarMemberswithEnroll(e)}
-                            onKeyDown={(e)=> checkBarMemberswithEnroll(e)}
                             inputProps={{ 'aria-label': 'search by enroll number' }}
                           />
                       <IconButton sx={{ p: '10px',color:"chocolate" }} aria-label="search">
@@ -390,31 +248,30 @@ const AdvocateCard = () => {
         </Box>
 
          {
-            barMembers.length === 0 ? 
-                    <Masonry style={{marginTop: '20px'}} columns={{xs: 2, sm: 3, md:3, lg:4, xl:4  }} spacing={{xs: 2, sm: 3, md:3, lg:4, xl:4}} >
-                            {itemData.map((item, index) => (
+            isLoading ? 
+                    <Masonry style={{marginTop: '20px'}} columns={{xs: 2, sm: 4, md:4, lg:6, xl:6  }} spacing={{xs: 2, sm: 4, md:4, lg:6, xl:6}} >
+                            {[...Array(12)].map((item, index) => (
                                 <Paper key={index}>
-                                    <Skeleton variant="rectangular" animation="wave" width="100%" height={118} />
-                                    <Accordion>
-                                        <AccordionSummary
-                                            expandIcon={<ExpandMoreIcon />}
-                                            aria-controls="panel1a-content"
-                                            id="panel1a-header"
-                                            >
-                                                {item.title}
-                                        </AccordionSummary>
-                                        <AccordionDetails>
-                                            <Skeleton animation="pulse" width="100%" />
-                                        </AccordionDetails>
-                                    </Accordion>
-                                </Paper>
-
+                                <Skeleton variant="rectangular" animation="wave" width="100%" height={118} />
+                                <Accordion>
+                                    <AccordionSummary
+                                        expandIcon={<ExpandMoreIcon />}
+                                        aria-controls="panel1a-content"
+                                        id="panel1a-header"
+                                        >
+                                            Loading......
+                                    </AccordionSummary>
+                                    <AccordionDetails>
+                                        <Skeleton animation="pulse" width="100%" />
+                                    </AccordionDetails>
+                                </Accordion>
+                            </Paper>
                             ))}
                     </Masonry> 
 
         : 
-                    <Masonry style={{marginTop: '20px'}} columns={{xs: 2, sm: 3, md:3, lg:4, xl:4  }} spacing={{xs: 2, sm: 3, md:3, lg:4, xl:4}} >
-                            {barMembers.slice(advocatesVisited, advocatesVisited + advocatesPerPage).map((item, index) => (
+                    <Masonry style={{marginTop: '20px'}} columns={{xs: 2, sm: 4, md:4, lg:6, xl:6  }} spacing={{xs: 2, sm: 4, md:4, lg:6, xl:6}} >
+                            {data.slice(advocatesVisited, advocatesVisited + advocatesPerPage).map((item, index) => (
                             <Paper key={index}>
                                 <img
                                 src={ checkImage(item)}
@@ -432,6 +289,11 @@ const AdvocateCard = () => {
                                         expandIcon={<ExpandMoreIcon />}
                                         aria-controls="panel1a-content"
                                         id="panel1a-header"
+                                        sx={{display: 'flex',
+                                          flexDirection: 'column',
+                                          flexWrap: 'wrap',
+                                          alignItems: 'center',
+                                          justifyContent: 'center'}}
                                         >
                                         <HeadingTypography >
                                           <AccordinName style={{fontSize:'bold' }}>
@@ -440,7 +302,6 @@ const AdvocateCard = () => {
                                           <Tooltip title="Certificate">
                                             <IconButton aria-label="certificate" onClick={()=> toCertificate(item)}>
                                               <Gif src={diploma} alt="diploma"/>
-                                              {/* <CardMembershipIcon color="action" fontSize="large"/> */}
                                             </IconButton>
                                           </Tooltip>
                                         </HeadingTypography>

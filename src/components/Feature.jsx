@@ -172,9 +172,9 @@ const Feature = () => {
                     className="mySwiper"
                   >
                     {
-                      HistoryData.map(item => {
+                      HistoryData.map((item,i) => {
                         return (
-                                  <SwiperSlide>
+                                  <SwiperSlide key={i}>
                                       <img src={item.image}/>
                                       <ImageContent>
                                       {

@@ -1,5 +1,4 @@
-import React, { useEffect, useState } from 'react'
-import { useDemoData } from '@mui/x-data-grid-generator';
+import React, { useState } from 'react';
 import { DataGrid, GridToolbar,GridActionsCellItem } from '@mui/x-data-grid';
 import styled from 'styled-components'
 import axios from 'axios';
@@ -25,6 +24,8 @@ import Alert from '@mui/material/Alert';
 import Skeleton from "@mui/material/Skeleton";
 import Box from "@mui/material/Box";
 import jwt_decode from "jwt-decode";
+import { useAdvocateHook } from '../hooks/useAdvocateHook';
+
 
 const Container = styled.div`
     justify-content: center;
@@ -66,93 +67,117 @@ border: 1px solid rgba( 255, 255, 255, 0.18 );
     }
 `
 
+const ErrorMessage = styled.div`
+    color: white;
+    display: flex;
+    font-size: xxx-large;
+    margin: 100px;
+    font-weight: bold;
+    font-family: 'Courier New', Courier, monospace;
+    align-items: center;
+    justify-content: center;
+`
 
-const KdbaMembers = () => {
-    const [barMembers, setBarMembers] = useState([]);
-    const [copyBarMembers, setCopyBarMembers] = useState([]);
-    const [copyMembersForEnroll, setCopyMembersForEnroll] = useState([]);
-    const { loading } = useDemoData({ });
-    const [birdID, setBirdID] = useState('');
+
+const KdbaQueryMembers = () => {
+
+    const navigate = useNavigate();
+    const [advocateID, setAdvocateID] = useState('');
     const [deleteConfirm, setDeleteConfirm] = useState(false);
     const vertical = "top";
     const horizontal = "center";
     const [open, setOpen] = useState(false);
     const[message,setMessage] = useState('');
+    const [copyBarMembers, setCopyBarMembers] = useState([]);
+    const [copyMembersForEnroll, setCopyMembersForEnroll] = useState([]);
+    
+    const onSuccess = ()=> {
+      console.warn("Successfully fetched the data")
+    }
+    const onError =  ()=> {
+      console.warn(error)
+    }
 
-    const navigate = useNavigate();
+    
+    const { isLoading, isError, data, error } = useAdvocateHook(onSuccess,onError,copyBarMembers,copyMembersForEnroll)
+
+    if(isError){
+        return <ErrorMessage>{error.message}</ErrorMessage>
+    }
+    
 
     const checkBarMembers = (e)=>{
-      if(e.keyCode === 8){
-          //console.log("backward filtering")
-          const noBackCharecter = e.target.value.slice(0, -1)
-          let caseInsensitive = noBackCharecter.toLowerCase();
-          const p = Array.from(caseInsensitive).reduce((a, v, i) => `${a}[^${caseInsensitive.substr(i)}]*?${v}`, '');
-          const re = RegExp(p);
-          setBarMembers(copyBarMembers.filter(v => v.firstname.toLowerCase().match(re)))
-      }
-      else if(e.target.value !== ""){
-          //console.log("forward filtering")
-          let caseInsensitive = e.target.value.toLowerCase();
-          const p = Array.from(caseInsensitive).reduce((a, v, i) => `${a}[^${caseInsensitive.substr(i)}]*?${v}`, '');
-          const re = RegExp(p);
-          setBarMembers((prev)=>
-      [...prev].filter(v => v.firstname.toLowerCase().match(re)))
-      }
-      else{
-        setBarMembers(copyBarMembers)
-      }
+
+      let caseInsensitive = e.target.value.toLowerCase();
+      setCopyMembersForEnroll([])
+      setCopyBarMembers(caseInsensitive);
+
+
+    //   if(e.keyCode === 8){
+    //       //console.log("backward filtering")
+    //       const noBackCharecter = e.target.value.slice(0, -1)
+    //       let caseInsensitive = noBackCharecter.toLowerCase();
+    //       const p = Array.from(caseInsensitive).reduce((a, v, i) => `${a}[^${caseInsensitive.substr(i)}]*?${v}`, '');
+    //       const re = RegExp(p);
+    //       setBarMembers(copyBarMembers.filter(v => v.firstname.toLowerCase().match(re)))
+    //   }
+    //   else if(e.target.value !== ""){
+    //       //console.log("forward filtering")
+    //       let caseInsensitive = e.target.value.toLowerCase();
+    //       const p = Array.from(caseInsensitive).reduce((a, v, i) => `${a}[^${caseInsensitive.substr(i)}]*?${v}`, '');
+    //       const re = RegExp(p);
+    //      setBarMembers((prev)=>
+    //      [...prev].filter(v => v.firstname.toLowerCase().match(re)))
+    //   }
+    //   else{
+    //     setBarMembers(copyBarMembers)
+    //   }
       
     }
 
     const checkBarMemberswithEnroll = (e)=>{
-      if(e.keyCode === 8){
-          //console.log("backward filtering")
-          const noBackCharecter = e.target.value.slice(0, -1)
-          let caseInsensitive = noBackCharecter.toLowerCase();
-          const p = Array.from(caseInsensitive).reduce((a, v, i) => `${a}[^${caseInsensitive.substr(i)}]*?${v}`, '');
-          const re = RegExp(p);
-          setBarMembers(copyMembersForEnroll.filter(v => v.enrollmentNo.toLowerCase().match(re)))
-      }
-      else if(e.target.value !== ""){
-          //console.log("forward filtering")
-          let caseInsensitive = e.target.value.toLowerCase();
-          const p = Array.from(caseInsensitive).reduce((a, v, i) => `${a}[^${caseInsensitive.substr(i)}]*?${v}`, '');
-          const re = RegExp(p);
-          setBarMembers((prev)=>
-      [...prev].filter(v => v.enrollmentNo.toLowerCase().match(re)))
-      }
-      else{
-        setBarMembers(copyMembersForEnroll)
-      }
+      let caseInsensitiveEnroll = e.target.value.toLowerCase();
+      setCopyBarMembers([])
+      setCopyMembersForEnroll(caseInsensitiveEnroll);
+
+
+    //   if(e.keyCode === 8){
+    //       //console.log("backward filtering")
+    //       const noBackCharecter = e.target.value.slice(0, -1)
+    //       let caseInsensitive = noBackCharecter.toLowerCase();
+    //       const p = Array.from(caseInsensitive).reduce((a, v, i) => `${a}[^${caseInsensitive.substr(i)}]*?${v}`, '');
+    //       const re = RegExp(p);
+    //       setBarMembers(copyMembersForEnroll.filter(v => v.enrollmentNo.toLowerCase().match(re)))
+    //   }
+    //   else if(e.target.value !== ""){
+    //       //console.log("forward filtering")
+    //       let caseInsensitive = e.target.value.toLowerCase();
+    //       const p = Array.from(caseInsensitive).reduce((a, v, i) => `${a}[^${caseInsensitive.substr(i)}]*?${v}`, '');
+    //       const re = RegExp(p);
+    //        setBarMembers((prev)=>
+    //        [...prev].filter(v => v.enrollmentNo.toLowerCase().match(re)))
+    //   }
+    //   else{
+    //     setBarMembers(copyMembersForEnroll)
+    //   }
       
-    }
+     }
 
-    
-      const getRowsWithID = (rows) => {
-        let id = 1;
-        let CompleteRowListArray = []
-    
-        for(let row of rows){
-          const rowWithID = {
-            id: id,
-            ...row
+
+      const isAdmin = () => {
+        try{
+          if(localStorage.getItem('token') !== null && localStorage.getItem('token') !== undefined && jwt_decode(localStorage.getItem('token')).exp > Date.now() / 1000){
+            return false;
           }
-          id++
-          CompleteRowListArray.push(rowWithID)
+          else{
+            return true;
+          } 
         }
-    
-        return CompleteRowListArray
+        catch(e){
+          return true;
+        }
+        
       }
-
-      const convertBackendDateToFront = (value) => {
-        var date = new Date(value.replace('IST', ''));
-        let day = date.getDate();
-        let month = date.getMonth()+1;
-        let year = date.getFullYear();
-        const changeddate = day+"/"+month+"/"+year
-        return changeddate;
-      }
-
 
       const handleClose = (event, reason) => {
         if (reason === 'clickaway') {
@@ -161,7 +186,6 @@ const KdbaMembers = () => {
     
         setOpen(false);
       };
-
 
       const handleClickOpen = (event,e) => {
 
@@ -189,13 +213,13 @@ const KdbaMembers = () => {
       };
 
       const deleteUser = (event) => {
-        setBirdID(event.row._id)
+        setAdvocateID(event.row._id)
         setDeleteConfirm(true)
 
       }
 
+      
       const deleteConfirmed = async()=> {
-
         const decoded = jwt_decode(localStorage.getItem('token'));
 
     const authAxios = axios.create({
@@ -207,15 +231,14 @@ const KdbaMembers = () => {
   
     if (decoded.exp < Date.now() / 1000) {
       
-      navigate('/login');
+      navigate('/advocateGrid');
     }
     else{
-      await authAxios.delete(`/barMember/${birdID}`)
+      await authAxios.delete(`/barMember/${advocateID}`)
       .then( res => { 
         setMessage(res.data['message']);
         setOpen(true); 
         setDeleteConfirm(false)
-        getBarMemebers();
       }) 
     .catch(e => {
 
@@ -223,32 +246,12 @@ const KdbaMembers = () => {
     }
         
     }
-    
-      const isAdmin = () => {
-        try{
-          if(localStorage.getItem('token') !== null && localStorage.getItem('token') !== undefined && jwt_decode(localStorage.getItem('token')).exp > Date.now() / 1000){
-            
-            return false;
-          }
-          else{
-            return true;
-          } 
-        }
-        catch(e){
-          return true;
-        }
-        
-      }
-
+      
       const columns = [
         { field: 'actions', 
           type: 'actions', 
           width: 100,
           getActions: (event) => [
-            // <Tooltip title="View Advocate Profile" placement="left" arrow>
-            //   <GridActionsCellItem icon={<ContactsOutlinedIcon/>}  color='info' onClick={(e)=> handleClickOpen(event,e)} label="View" />
-            // </Tooltip>,
-            
             <Tooltip title="Delete Advocate Profile" placement="top" arrow>
               <span>
                   <GridActionsCellItem disabled={isAdmin()}
@@ -274,22 +277,22 @@ const KdbaMembers = () => {
         { field: 'firstname', headerName: 'Name', width: 280 },
        
         
-        { field: 'enrollmentDate', headerName: 'Enrollment Dt',type: 'date', width: 130,
+        { field: 'enrollmentDate', headerName: 'Enrollment Dt',type: 'date', width: 130,editable: true,
             valueGetter: (params) => {
-              return convertBackendDateToFront(params.value)
+              return new Date(params.value)
             }
         },
         { field: 'enrollmentNo', headerName: 'Enrollment No', width: 150},
         { field: 'lfNumber', headerName: 'LF', width: 70},
         { field: 'admissionDate', headerName: 'Admission Dt',type: 'date', width: 130,
             valueGetter: (params) => {
-              return convertBackendDateToFront(params.value)
+              return new Date(params.value)
             }
         },
         { field: 'gender', headerName: 'Gender', width: 80 },
-        { field: 'dob', headerName: 'DOB', width: 130 ,
+        { field: 'dob', headerName: 'DOB', type: 'date', width: 130 ,
           valueGetter: (params) => {
-            return convertBackendDateToFront(params.value)
+            return new Date(params.value)
           }
         },
         { field: 'mobile', headerName: 'Mobile', width: 100 },
@@ -297,48 +300,22 @@ const KdbaMembers = () => {
         { field: 'remarks', headerName: 'Remarks', width: 130},
       ];
 
-      const getBarMemebers = async() => {
-        try{
-          const response = await axios.get(`https://kdbaapi.herokuapp.com/api/kdba/getBarMembers`);
-          setCopyBarMembers(getRowsWithID(response.data['object']))
-          setCopyMembersForEnroll(getRowsWithID(response.data['object']))
-          setBarMembers(getRowsWithID(response.data['object']));
-      }
-     
-      catch(e){
-          console.log(e)
-      }
-      }
-
       const LoadingSkeleton = () => (
         <Box
           sx={{
             height: "max-content"
           }}
         >
-          {[...Array(10)].map((_) => (
-            <Skeleton variant="rectangular" sx={{ my: 4, mx: 1 }} />
+          {[...Array(10)].map((data, i) => (
+            <Skeleton key={i} variant="rectangular" sx={{ my: 4, mx: 1 }} />
           ))}
         </Box>
       );
 
-      useEffect(()=>{
-        try{
-          if(jwt_decode(localStorage.getItem('token')).exp < Date.now() / 1000){
-            localStorage.setItem('token', null)
-            localStorage.setItem('mail', null)
-            localStorage.setItem('kdbaAdminId', null)
-          } 
-        }
-        catch(e){
-        }
-        getBarMemebers();
-      },[])
-
 
   return (
     <Container>
-        <Paper
+      <Paper
             component="form"
             sx={{ display: 'flex',flexDirection:'row', p: '2px',  borderRadius: 1,
             marginBottom:'10px',marginLeft:'20px',marginRight:'20px', alignItems: 'center'
@@ -348,7 +325,7 @@ const KdbaMembers = () => {
                   sx={{ ml: 1, flex: 1 }}
                   placeholder="name..."
                   onChange={(e)=> checkBarMembers(e)}
-                  onKeyDown={(e)=> checkBarMembers(e)}
+                  // onKeyDown={(e)=> checkBarMembers(e)}
                   inputProps={{ 'aria-label': 'search google maps' }}
                 />
                 <IconButton  sx={{ p: '10px',color:"mediumorchid" }} aria-label="search">
@@ -385,15 +362,15 @@ const KdbaMembers = () => {
                   sx={{ ml: 1, flex: 1 }}
                   placeholder="enroll..."
                   onChange={(e)=> checkBarMemberswithEnroll(e)}
-                  onKeyDown={(e)=> checkBarMemberswithEnroll(e)}
+                  // onKeyDown={(e)=> checkBarMemberswithEnroll(e)}
                   inputProps={{ 'aria-label': 'search google maps' }}
                 />
                
           </Paper>
-       
-        <Table>
+          
+      <Table>
           {
-            barMembers.length === 0 ? 
+            isLoading ? 
             <DataGrid
                 components={{
                   LoadingOverlay: LoadingSkeleton,
@@ -405,12 +382,11 @@ const KdbaMembers = () => {
                 :
 
                 <DataGrid style={{color:'black', backgroundColor:'white'}}
-                rows={barMembers}
+                rows={data}
                 columns={columns}
                 getRowId={(row) => row._id}
                 checkboxSelection
                 disableSelectionOnClick
-                loading={loading} 
                 components={{ Toolbar: GridToolbar }} />
           }
                
@@ -422,8 +398,7 @@ const KdbaMembers = () => {
               <Alert onClose={handleClose} severity="info" sx={{ width: '100%' }}>
                 {message}
               </Alert>
-            </Snackbar>
-
+        </Snackbar>
 
         <Dialog
           open={deleteConfirm}
@@ -442,6 +417,9 @@ const KdbaMembers = () => {
             </DialogContentText>
           </DialogContent>
           <DialogActions>
+            <Button onClick={()=> setDeleteConfirm(false)} autoFocus>
+              Cancel
+            </Button>
             <Button onClick={deleteConfirmed} autoFocus>
               Delete
             </Button>
@@ -451,4 +429,4 @@ const KdbaMembers = () => {
   )
 }
 
-export default KdbaMembers
+export default KdbaQueryMembers
