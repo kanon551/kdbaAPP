@@ -52,7 +52,7 @@ const PureLogo = Styled.img`
 const LogoTitle = Styled.div`
     font-weight: bold;
     color: white;
-    font-size: x-large;
+    font-size: 3vh;
     flex-wrap: wrap;
     text-decoration: underline #F4A460;
 `

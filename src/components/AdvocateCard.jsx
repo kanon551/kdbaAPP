@@ -109,7 +109,6 @@ const ErrorMessage = styled.div`
 const AdvocateCard = () => {
 
   const navigate = useNavigate();
-
   
     const [copyBarMembers, setCopyBarMembers] = useState([]);
     const [copyMembersForEnroll, setCopyMembersForEnroll] = useState([]);
@@ -123,7 +122,7 @@ const AdvocateCard = () => {
     const { isLoading, isError, data, error } = useAdvocateHook(onSuccess,onError,copyBarMembers,copyMembersForEnroll)
 
     const [pageNumber, setPageNumber] = useState(0);
-  const advocatesPerPage = 12;
+  const advocatesPerPage = 36;
   const advocatesVisited = pageNumber * advocatesPerPage;
     const advocatesCount =  data !== undefined && data.length !== 0 ? Math.ceil( data.length / advocatesPerPage) : 0;
   
@@ -249,7 +248,7 @@ const AdvocateCard = () => {
 
          {
             isLoading ? 
-                    <Masonry style={{marginTop: '20px'}} columns={{xs: 2, sm: 4, md:4, lg:6, xl:6  }} spacing={{xs: 2, sm: 4, md:4, lg:6, xl:6}} >
+                    <Masonry style={{marginTop: '20px'}} columns={{xs: 1, sm: 3, md:3, lg:5, xl:5  }} spacing={{xs: 2, sm: 4, md:4, lg:6, xl:6}} >
                             {[...Array(12)].map((item, index) => (
                                 <Paper key={index}>
                                 <Skeleton variant="rectangular" animation="wave" width="100%" height={118} />
@@ -270,9 +269,10 @@ const AdvocateCard = () => {
                     </Masonry> 
 
         : 
-                    <Masonry style={{marginTop: '20px'}} columns={{xs: 2, sm: 4, md:4, lg:6, xl:6  }} spacing={{xs: 2, sm: 4, md:4, lg:6, xl:6}} >
+                    <Masonry style={{marginTop: '20px'}} columns={{xs: 1, sm: 3, md:3, lg:5, xl:5  }} spacing={{xs: 2, sm: 4, md:4, lg:6, xl:6}} >
                             {data.slice(advocatesVisited, advocatesVisited + advocatesPerPage).map((item, index) => (
-                            <Paper key={index}>
+                              
+                                  <Paper key={index}>
                                 <img
                                 src={ checkImage(item)}
                                 alt={item.firstname}
@@ -360,6 +360,7 @@ const AdvocateCard = () => {
                                     </AccordionDetails>
                                 </Accordion>
                             </Paper>
+                              
                             ))}
                     </Masonry>
 

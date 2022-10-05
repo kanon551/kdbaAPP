@@ -140,27 +140,7 @@ height: 30px;
   border: none;
 `
 
-// const StyledBox = Styled.div`
-//   background-color: 'grey';
-// `
-
-// const Puller = Styled.div`
-//    width: 30px;
-//   height: 6px;
-//   background-color: '#F4A460';
-//   border-radius: 3px;
-//   position: 'absolute';
-//   top: 8px;
-//   left: 'calc(50% - 15px)';
-// `
-
 const drawerBleeding = 56;
-
-// const Root = styled('div')(({ theme }) => ({
-//   height: '100%',
-//   backgroundColor:
-//     theme.palette.mode === 'light' ? grey[100] : theme.palette.background.default,
-// }));
 
 const StyledBox = styled(Box)(({ theme }) => ({
   backgroundColor: theme.palette.mode === 'light' ? '#fff' : grey[800],

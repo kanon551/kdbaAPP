@@ -47,7 +47,6 @@ const Rectangle = styled.div`
     top: 400px;
     left: -50px;
     animation: rect 25s linear alternate infinite;
-    /* z-index: -1; */
 
     @keyframes rect {
         to{

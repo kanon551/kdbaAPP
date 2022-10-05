@@ -23,7 +23,7 @@ export const HistoryData = [
     },
     {
         id: 5,
-        image: "https://scontent.fhyd14-2.fna.fbcdn.net/v/t1.6435-9/73111686_2029201613849068_8193773448636399616_n.jpg?_nc_cat=109&ccb=1-7&_nc_sid=8bfeb9&_nc_ohc=uNggQ3FOuckAX-UltiI&_nc_ht=scontent.fhyd14-2.fna&oh=00_AT-SE3dhgNNuPLGnOoacAvIBdDGAdU0e6z2m_wj_5dB5Zg&oe=630AB0C2",
+        image: "https://scontent.fhyd14-2.fna.fbcdn.net/v/t1.6435-9/73111686_2029201613849068_8193773448636399616_n.jpg?_nc_cat=109&ccb=1-7&_nc_sid=8bfeb9&_nc_ohc=mhYzM4_V8QoAX-eHgSf&_nc_ht=scontent.fhyd14-2.fna&oh=00_AT8XtAsJLH0DYHxJGlClMWTWDHQ_S57NoR-sCI_5lqUktg&oe=6361B3C2",
         Title: "Entrance to kurnool Airport"
     },
     {
